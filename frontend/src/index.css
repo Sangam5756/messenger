@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body{
+
+    margin: 0;
+
+    @apply bg-slate-200;
+   
+
+}
+
+.logo-color{
+    color: #00AcB4;
+}
