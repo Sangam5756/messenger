@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import AuthLayouts from "../layout";
 import { IoClose } from "react-icons/io5";
-import {Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import UploadImage from "../helper/UploadImage.jsx";
+import { toast } from "react-toastify";
+import axios from "axios";
+
 const RegisterPage = () => {
 
     const [data, setData] = useState({
@@ -12,6 +16,7 @@ const RegisterPage = () => {
     })
 
     const [uploadPhoto, setUploadPhoto] = useState("");
+    const navigate = useNavigate();
 
     const handleonChange = (e) => {
 
@@ -27,11 +32,19 @@ const RegisterPage = () => {
 
     }
 
-    const handleUploadPhoto = (e) => {
+    const handleUploadPhoto = async (e) => {
         const file = e.target.files[0];
-        // e.preventDefault();
+
+        const uploadImg = await UploadImage(file)
+        setData((prev) => {
+            return {
+                ...prev,
+                profile_pic: uploadImg.data?.url
+            }
+        })
 
         setUploadPhoto(file)
+
 
     }
 
@@ -42,8 +55,32 @@ const RegisterPage = () => {
     }
 
 
-    const handleSubmit = (e) => {
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:5001/api/register", data);
+            console.log(response);
+            toast.success(response.data.message)
+            if (response.data.success) {
+                setData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    profile_pic: "",
+
+                })
+                navigate("/email");
+            }
+
+
+        } catch (error) {
+            console.log("error" + error);
+            toast.error(error.response.data.message)
+
+
+        }
 
     }
 
@@ -82,7 +119,7 @@ const RegisterPage = () => {
                                 id="email"
                                 placeholder="Enter your Email"
                                 className="bg-slate-100 outline-none  focus:outline-sky-400  px-2 py-1 outline"
-                                value={data?.name}
+                                value={data?.email}
                                 onChange={handleonChange}
                                 required
 
@@ -99,7 +136,7 @@ const RegisterPage = () => {
                                 id="password"
                                 placeholder="Enter your Password"
                                 className="bg-slate-100  outline-none  focus:outline-sky-400  px-2 py-1 outline"
-                                value={data?.name}
+                                value={data?.password}
                                 onChange={handleonChange}
                                 required
 

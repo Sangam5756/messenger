@@ -3,6 +3,7 @@ import { getUserDetailsByToken } from "../helper/getUserDetailsByToken.js";
 export const userDetails = async (req, res) => {
   try {
     const token = req.cookies?.token || "";   
+    console.log(token)
     
 
     const user = await getUserDetailsByToken(token);
