@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { PiUserCircle } from "react-icons/pi";
 import Avatar from "../components/Avatar.jsx"
-
-
+import { useDispatch } from "react-redux"
+import { setToken, setUser } from "../redux/userSlice.jsx";
 const CheckPasswordPage = () => {
 
 
@@ -23,7 +23,7 @@ const CheckPasswordPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  const dispatch = useDispatch();
   console.log(location.state);
 
   const handleonChange = (e) => {
@@ -50,24 +50,30 @@ const CheckPasswordPage = () => {
 
 
 
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5001/api/password",{
+      const response = await axios.post("http://localhost:5001/api/password", {
         userId: location?.state?._id,
         password: data?.password
       },
-      {
-        withCredentials:true
-      }
-    );
-      console.log(response);
+        {
+          withCredentials: true
+        }
+      );
+
+      
       toast.success(response.data.message)
+      
       if (response.data.success) {
+        dispatch(setToken(response?.data?.token));
+        localStorage.setItem('token', response?.data?.token)
+
         setData({
           password: ""
         })
         navigate("/");
+
       }
 
 
