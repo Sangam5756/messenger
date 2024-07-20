@@ -3,14 +3,15 @@ import { IoChatbubbleEllipses } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { Link, NavLink } from 'react-router-dom';
-import Avatar from "../components/Avatar"
+import Avatar from "../components/Avatar";
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 const Sidebar = () => {
 
+
   const user = useSelector(state => state.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
-
+  console.log(user)
   return (
     <div className='w-full h-full'>
 
@@ -37,6 +38,7 @@ const Sidebar = () => {
               width={40}
               height={40}
               name={user?.name}
+              imageUrl={user?.profile_pic}
 
             />
           </button>
@@ -50,7 +52,7 @@ const Sidebar = () => {
 
       {/* edit user details */}
       {
-        (editUserOpen) && (<EditUserDetails onClose={() => setEditUserOpen(false)} data={user} />)
+        (editUserOpen) && (<EditUserDetails onClose={() => setEditUserOpen(false)} userdata={user} />)
       }
 
 

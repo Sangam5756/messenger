@@ -25,7 +25,7 @@ app.use(express.json());
 app.use("/api", router);
 
 app.get("/", (req, res) => {
-  res.send("root calling");
+  res.send("root calling");  
 });
 
 app.listen(PORT, () => {
