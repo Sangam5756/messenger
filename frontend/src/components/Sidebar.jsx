@@ -9,12 +9,19 @@ import Avatar from "../components/Avatar";
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import Divider from './Divider';
+import SearchUser from './SearchUser';
 const Sidebar = () => {
+
+
 
 
   const user = useSelector(state => state.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
   const [allUser, setAllUser] = useState([]);
+  const [openSearchUser, setOpenSearchUser] = useState(false)
+
+
+
   console.log(user)
   return (
     <div className='w-full h-full grid grid-cols-[48px,1fr] bg-white'>
@@ -29,7 +36,7 @@ const Sidebar = () => {
           </NavLink>
 
           {/* add friend logo */}
-          <div title='add friend' className='w-12 h-12  cursor-pointer hover:bg-slate-300 hover:rounded-md duration-300 flex justify-center items-center'>
+          <div title='add friend' onClick={() =>  setOpenSearchUser(true)} className='w-12 h-12  cursor-pointer hover:bg-slate-300 hover:rounded-md duration-300 flex justify-center items-center'>
             <FaUserPlus size={20} />
           </div>
 
@@ -83,6 +90,12 @@ const Sidebar = () => {
       {/* edit user details */}
       {
         (editUserOpen) && (<EditUserDetails onClose={() => setEditUserOpen(false)} userdata={user} />)
+      }
+
+      {/* search user */}
+      {
+        openSearchUser && (<SearchUser onClose={() => setOpenSearchUser(false)} />)
+
       }
 
 

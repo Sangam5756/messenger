@@ -7,6 +7,7 @@ import { checkPassword } from "../controller/checkPassword.controller.js";
 import { userDetails } from "../controller/userDetails.controller.js";
 import { logout } from "../controller/logout.controller.js";
 import { updateUserDetails } from "../controller/updateUserDetail.controller.js";
+import { searchUser } from "../controller/searchUser.controller.js";
 
 // create user api
 router.post("/register", registerUser);
@@ -20,6 +21,9 @@ router.get("/user-details", userDetails);
 router.get("/logout", logout);
 
 // update details
-router.post("/update-user",updateUserDetails)
+router.post("/update-user", updateUserDetails);
+
+// search user
+router.post("/search-user", searchUser);
 
 export default router;
