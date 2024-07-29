@@ -49,9 +49,10 @@ const Home = () => {
       < section className={`${basePath && 'hidden'}`} >
         <Outlet />
       </section >
+      
 
       {/* Image logo */}
-      <div className='lg:flex justify-center items-center flex-col gap-2 hidden'>
+      <div className={` lg:flex justify-center items-center flex-col gap-2 hidden`}>
         <div>
           <img src={logo} width={200} alt="logo" />
         </div>

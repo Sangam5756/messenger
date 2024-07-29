@@ -77,9 +77,9 @@ const EditUserDetails = ({ onClose, userdata }) => {
         withCredentials: true
       })
 
-      toast.success(response?.data?.message);
-
-      if (response.data.success) {
+      
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
         dispatch(setUser(response?.data?.data))
         onClose();
       }
