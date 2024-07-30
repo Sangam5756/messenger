@@ -24,7 +24,8 @@ const SearchUser = () => {
             toast.error(response?.data?.error);
 
 
-        }
+        } 
+        
 
     }
 
