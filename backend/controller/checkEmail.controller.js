@@ -9,7 +9,7 @@ export const checkEmail = async (req, res) => {
     const checkemail = await userModel.findOne({ email }).select("-password");
 
     if (!checkemail) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "User not exists",
         error: true,
         success: false,

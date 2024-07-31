@@ -3,7 +3,7 @@ import userModel from "../models/UserModel.js";
 export const searchUser = async (req, res) => {
   try {
     const { search } = req.body;
-    console.log(search);
+    // console.log(search);
 
     const query = new RegExp(search, "i", "g");
 

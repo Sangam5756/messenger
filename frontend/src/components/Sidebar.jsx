@@ -22,7 +22,6 @@ const Sidebar = () => {
 
 
 
-  console.log(user)
   return (
     <div className='w-full h-full grid grid-cols-[48px,1fr] bg-white'>
 
@@ -50,6 +49,7 @@ const Sidebar = () => {
               height={40}
               name={user?.name}
               imageUrl={user?.profile_pic}
+              userId={user?._id}
 
             />
           </button>
@@ -64,7 +64,7 @@ const Sidebar = () => {
       </div>
 
       <div className='w-full'>
-        <h2 className='text-xl font-semibold p-4 h-16 text-slate-800 mb-1'>Message</h2>
+        <h2 className='text-xl font-semibold p-4 h-18 text-slate-800 mb-1'>Message</h2>
         <Divider />
 
         <div className='h-[calc(100vh-70px)] scrollbar overflow-x-hidden overflow-y-auto'>

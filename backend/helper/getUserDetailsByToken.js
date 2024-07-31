@@ -13,10 +13,10 @@ export const getUserDetailsByToken = async (token) => {
 
   const decode =  jwt.verify(token, process.env.JWT_SECRETKEY);
 
-  console.log("decode"+decode.id)
+  // console.log("decode"+decode.id)
 
   const user = await userModel.findById(decode.id).select(" -password");
 
-  console.log(user)
+  // console.log(user)
   return user;
 };

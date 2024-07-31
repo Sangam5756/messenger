@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 export const checkPassword = async (req, res) => {
   try {
     const { password, userId } = req.body;
-    console.log(userId);
+    // console.log(userId);
 
     const user = await userModel.findById(userId);
     
