@@ -4,40 +4,49 @@ import { IoSearchOutline } from "react-icons/io5";
 import Loading from "./Loading";
 import axios from "axios";
 import UserSearchCard from "./UserSearchCard";
+import { IoIosCloseCircle } from "react-icons/io";
 
-const SearchUser = () => {
+
+const SearchUser = ({ onClose }) => {
 
     const [searchUser, setSearchUser] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState();
+
     const handleSearchUser = async () => {
 
         try {
+            setLoading(true)
 
-            const response = await axios.post("http://localhost:5001/api/search-user", search)
 
-            console.log(response);
+            const response = await axios.post("http://localhost:5001/api/search-user", {
+                search: search
+            })
+
+            console.log(response?.data?.data);
             setSearchUser(response.data.data)
+            setLoading(false)
 
         } catch (error) {
             console.log(error)
             toast.error(response?.data?.error);
 
 
-        } 
-        
+        }
+
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         handleSearchUser();
-    },[search])
+    }, [search])
 
 
 
     return (
         <>
             <div className="fixed   bottom-0 left-0 right-0 top-0 bg-slate-700 p-2 bg-opacity-50 ">
+                   
                 <div className="w-full  max-w-md mx-auto mt-10">
                     {/* input search user */}
                     <div className="bg-white rounded overflow-hidden h-14 flex ">
@@ -73,10 +82,10 @@ const SearchUser = () => {
                         }
 
                         {
-                            searchUser?.length == 0 && (
+                            searchUser?.length !== 0 && (
                                 searchUser?.map((user, index) => {
                                     return (
-                                        <UserSearchCard key={user?._id} user={user} />
+                                        <UserSearchCard onClose={onClose} key={user?._id} user={user} />
 
                                     )
                                 })
@@ -86,7 +95,13 @@ const SearchUser = () => {
 
                     </div>
 
+
                 </div>
+                <div onClick={onClose} className=" hover:text-white absolute top-0 right-0 p-2 text-2xl lg:text-4xl">
+                    <button><IoIosCloseCircle /></button>
+                    </div>
+                
+               
             </div>
         </>
     );

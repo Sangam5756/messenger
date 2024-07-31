@@ -46,18 +46,22 @@ const Home = () => {
       </section >
 
       {/* Message Component */}
-      < section className={`${basePath && 'hidden'}`} >
+      <section className={`${basePath && "hidden"}`} >
         <Outlet />
-      </section >
-      
+      </section>
+
 
       {/* Image logo */}
-      <div className={` lg:flex justify-center items-center flex-col gap-2 hidden`}>
+      <div className={` justify-center items-center flex-col gap-2 hidden {${!basePath ? "hidden" : "lg:flex"}`}>
         <div>
-          <img src={logo} width={200} alt="logo" />
+          <img 
+          src={logo}
+           width={200}
+            alt="logo" />
+
         </div>
-        
-          <p className='text-lg mt-2 text-slate-500'>Select user to send message</p>
+
+        <p className='text-lg mt-2 text-slate-500'>Select user to send message</p>
 
 
       </div>

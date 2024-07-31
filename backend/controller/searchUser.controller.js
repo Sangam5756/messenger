@@ -3,12 +3,13 @@ import userModel from "../models/UserModel.js";
 export const searchUser = async (req, res) => {
   try {
     const { search } = req.body;
+    console.log(search);
 
     const query = new RegExp(search, "i", "g");
 
     const user = await userModel.find({
       $or: [{ name: query }, { email: query }],
-    });
+    }).select("-password");
 
     return res.status(200).json({
       message: "all user",
@@ -23,6 +24,3 @@ export const searchUser = async (req, res) => {
     });
   }
 };
-
-
-
