@@ -77,7 +77,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
         withCredentials: true
       })
 
-      
+
       if (response?.data?.success) {
         toast.success(response?.data?.message);
         dispatch(setUser(response?.data?.data))
@@ -97,7 +97,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
   return (
 
 
-    <div className='fixed  bottom-0  top-0 left-0  right-0  bg-gray-700  bg-opacity-40 flex  justify-center items-center '>
+    <div className='fixed  bottom-0 z-10 top-0 left-0  right-0  bg-gray-700  bg-opacity-40 flex  justify-center items-center '>
 
 
       <div className='bg-white p-4 py-6 m-1 rounded w-full max-w-sm'>
@@ -130,8 +130,10 @@ const EditUserDetails = ({ onClose, userdata }) => {
             <div>Photo : </div>
 
             <div className='my-1 flex  items-center gap-4'>
-              <Avatar width={60} height={60} name={Data?.name} imageUrl={Data?.profile_pic} />
+            <div className='text-center overflow-hidden rounded-full my-2'>
+                <Avatar width={60} height={60} name={Data?.name} imageUrl={Data?.profile_pic} />
 
+              </div>
               <label htmlFor="profile_pic">
 
                 <button onClick={handleopenUploadPhoto} className='font-semibold'  >Change photo </button>

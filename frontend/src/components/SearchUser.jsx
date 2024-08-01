@@ -45,7 +45,7 @@ const SearchUser = ({ onClose }) => {
 
     return (
         <>
-            <div className="fixed   bottom-0 left-0 right-0 top-0 bg-slate-700 p-2 bg-opacity-50 ">
+            <div className="fixed    bottom-0 left-0 right-0 top-0 bg-slate-700 p-2  z-10 bg-opacity-50 ">
                    
                 <div className="w-full  max-w-md mx-auto mt-10">
                     {/* input search user */}
@@ -66,7 +66,7 @@ const SearchUser = ({ onClose }) => {
 
                     </div>
                     {/* display search user */}
-                    <div className="bg-white mt-2 rounded-none w-full p-4">
+                    <div className="bg-white mt-2   w-full rounded-none  p-4">
                         {/* no user found */}
                         {searchUser?.length == 0 && !loading &&
                             (

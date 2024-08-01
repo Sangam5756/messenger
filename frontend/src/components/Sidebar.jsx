@@ -44,6 +44,7 @@ const Sidebar = () => {
         <div className='flex flex-col items-center justify-center'>
           {/* Avatar name */}
           <button className='mx-auto' title={user?.name} onClick={() => setEditUserOpen(true)}>
+          <div className='text-center overflow-hidden rounded-full my-2'>
             <Avatar
               width={40}
               height={40}
@@ -52,6 +53,7 @@ const Sidebar = () => {
               userId={user?._id}
 
             />
+            </div>
           </button>
 
           <button title='logout' className='w-12 h-12  cursor-pointer hover:bg-slate-300 hover:rounded-md duration-300 flex justify-center items-center'>
