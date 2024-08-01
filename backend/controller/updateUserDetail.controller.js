@@ -4,11 +4,11 @@ import userModel from "../models/UserModel.js";
 export const updateUserDetails = async (req, res) => {
   try {
     const token = req.cookies.token || "";
-    // console.log("Token",token)
+    console.log("Token",token)
     const user = await getUserDetailsByToken(token);
 
     const { name, profile_pic } = req.body;
-    // console.log("name",name)
+    console.log("name",name)
 // data is updated
     const updateUser = await userModel.updateOne(
       { _id: user._id },

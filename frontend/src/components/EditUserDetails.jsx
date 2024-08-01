@@ -77,6 +77,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
         withCredentials: true
       })
 
+      console.log(response)
 
       if (response?.data?.success) {
         toast.success(response?.data?.message);
@@ -86,7 +87,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
 
 
     } catch (error) {
-      toast.error(response?.data?.error);
+      toast.error(error);
 
     }
 
@@ -110,7 +111,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
 
         <p className='text-sm'>Edit user details</p>
         {/* Form */}
-        <form className='grid gap-3 mt-3' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='grid gap-3 mt-3'>
 
           {/* Name input */}
           <div className='flex flex-col gap-3'>
@@ -130,7 +131,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
             <div>Photo : </div>
 
             <div className='my-1 flex  items-center gap-4'>
-            <div className='text-center overflow-hidden rounded-full my-2'>
+              <div className='text-center overflow-hidden rounded-full my-2'>
                 <Avatar width={60} height={60} name={Data?.name} imageUrl={Data?.profile_pic} />
 
               </div>
@@ -151,7 +152,7 @@ const EditUserDetails = ({ onClose, userdata }) => {
           {/* Buttons for save and cancel */}
           <div className='flex gap-2 w-fit ml-auto'>
             <button onClick={onClose} className='border border-sky-400 px-4 py-1 hover:text-white duration-200  hover:bg-sky-400    text-sky-400  rounded'>Cancel</button>
-            <button type='submit' className='border border-sky-400 bg-sky-400 text-white px-4 py-1 rounded'>Save </button>
+            <button type='submit' onClick={handleSubmit} className='border border-sky-400 bg-sky-400 text-white px-4 py-1 rounded'>Save </button>
           </div>
 
         </form>
