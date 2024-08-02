@@ -12,10 +12,10 @@ const ConversationSchema = mongoose.Schema(
       require: true,
       ref: "User",
     },
-    message: [ 
+    messages: [ 
       {
         type: mongoose.Schema.ObjectId,
-        ref: "Message",
+        ref: "message",
       },
     ],
   },
