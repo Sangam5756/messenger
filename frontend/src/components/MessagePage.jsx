@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar";
@@ -22,7 +22,13 @@ const MessagePage = () => {
   const [loading, setLoading] = useState(false);
   const [openImageVideUpload, setOpenImageVideUpload] = useState(false);
   const [allMessage, setAllMessage] = useState([]);
+  const currentmessage = useRef(null);
 
+  useEffect(() => {
+    if (currentmessage.current) {
+      currentmessage.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    }
+  }, [allMessage])
 
   const [dataUser, setDataUser] = useState({
     name: "",
@@ -230,11 +236,11 @@ const MessagePage = () => {
         )}
 
         {/* all message show here */}
-        <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col gap-2 py-2 mx-2" ref={currentmessage}>
           {
             allMessage.map((msg, index) => {
               return (
-                <div className={`bg-white py-1 rounded p-1 w-fit ${user._id === msg.msgByUserId ? "ml-auto" : ""}`}>
+                <div className={`bg-white py-1 rounded p-1 w-fit ${user._id === msg.msgByUserId ? "ml-auto bg-teal-100" : ""}`}>
                   <p className="px-2">{msg.text}</p>
                   <p className="text-xs ml-auto w-fit">{moment(msg.createdAt).format('hh:mm')}</p>
                 </div>
