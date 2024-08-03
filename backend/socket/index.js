@@ -57,10 +57,20 @@ io.on("connection", async (socket) => {
         };
 
         socket.emit("message-user", payload);
+
+        // previous message
+    socket.emit('message',()=>{
+          
+    })
+
+
       } catch (error) {
         console.error("Error fetching message page user:", error);
       }
     });
+
+    
+
 
     // Handle new message
     socket.on("new-message", async (data) => {

@@ -17,12 +17,14 @@ const MessagePage = () => {
   const socketConnection = useSelector(
     (state) => state?.user?.socketConnection
   );
+
   const user = useSelector((state) => state?.user);
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const [openImageVideUpload, setOpenImageVideUpload] = useState(false);
   const [allMessage, setAllMessage] = useState([]);
   const currentmessage = useRef(null);
+
 
   useEffect(() => {
     if (currentmessage.current) {
@@ -62,6 +64,7 @@ const MessagePage = () => {
       })
     }
   }, [socketConnection, params?.userId, user, message]);
+
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -149,6 +152,7 @@ const MessagePage = () => {
         text: ""
       }
     })
+    openImageVideUpload(false);
 
   }
 
@@ -192,9 +196,44 @@ const MessagePage = () => {
       {/* show all message */}
       <section className="h-[calc(100vh-128px)]  relative overflow-x-hidden overflow-y-scroll bg-slate-200 bg-opacity-50 ">
 
+        {/* all message show here */}
+        <div className="flex flex-col gap-2 py-2 mx-5" ref={currentmessage}>
+          {
+            allMessage.map((msg, index) => {
+              return (
+                <div className={`bg-white py-1 rounded p-1 w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-400" : ""}`}>
+                  <div className="w-full ">
+
+                    {
+                      msg?.imageUrl && (
+                        <img src={msg?.imageUrl} alt="" height={50} width={300} className=" object-scale-down" />
+                      )
+
+                    }
+
+                  </div>
+                  <div className="w-full ">
+
+                    {
+                      msg?.videoUrl && (
+                        <video src={msg?.videoUrl} alt="" height={50} width={300} controls className=" object-scale-down" />
+                      )
+
+                    }
+
+                  </div>
+                  <p className="px-2">{msg.text}</p>
+                  <p className="text-xs ml-auto w-fit">{moment(msg.createdAt).format('hh:mm')}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+
+
         {/* image */}
         {message.imageUrl && (
-          <div className="w-full h-full bg-slate-700 rounded  overflow-hidden bg-opacity-30  flex items-center justify-center">
+          <div className="w-full h-full  sticky bottom-0 bg-slate-700 rounded  overflow-hidden bg-opacity-30  flex items-center justify-center">
             <div
               onClick={handleClearImage}
               className="w-fit absolute top-0 right-0 p-2 cursor-pointer hover:text-red-600"
@@ -215,7 +254,7 @@ const MessagePage = () => {
 
         {/* video */}
         {message.videoUrl && (
-          <div className="w-full h-full bg-slate-700 rounded  overflow-hidden bg-opacity-30  flex items-center justify-center">
+          <div className="w-full h-full sticky bottom-0 bg-slate-700 rounded  overflow-hidden bg-opacity-30  flex items-center justify-center">
             <div
               onClick={handleClearVideo}
               className="w-fit absolute top-0 right-0 p-2 cursor-pointer hover:text-red-600"
@@ -235,19 +274,6 @@ const MessagePage = () => {
           </div>
         )}
 
-        {/* all message show here */}
-        <div className="flex flex-col gap-2 py-2 mx-2" ref={currentmessage}>
-          {
-            allMessage.map((msg, index) => {
-              return (
-                <div className={`bg-white py-1 rounded p-1 w-fit ${user._id === msg.msgByUserId ? "ml-auto bg-teal-100" : ""}`}>
-                  <p className="px-2">{msg.text}</p>
-                  <p className="text-xs ml-auto w-fit">{moment(msg.createdAt).format('hh:mm')}</p>
-                </div>
-              )
-            })
-          }
-        </div>
 
 
       </section>
